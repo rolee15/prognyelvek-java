@@ -1,8 +1,8 @@
-package string.utils.main;
+package string.utils;
 
 public class Main {
-
+    
     public static void main(String[] args) {
-        int num = Integer.
+        
     }
 }

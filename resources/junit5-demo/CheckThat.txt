@@ -1,0 +1,54 @@
+
+Download: https://repo1.maven.org/maven2/org/junit/platform/junit-platform-console-standalone/1.10.0/junit-platform-console-standalone-1.10.0.jar
+Rename:   junit-platform-console-standalone-1.10.0.jar --> junit5all.jar
+
+Compile & run functional test:
+    javac -cp ".;junit5all.jar;checkthat.jar" time\TimeTest.java
+    java -jar junit5all.jar execute --disable-banner --disable-ansi-colors -cp . -cp checkthat.jar -c time.TimeTest
+
+Compile & run structural test:
+    javac time\Time.java
+    javac -cp ".;junit5all.jar;checkthat.jar" time\TimeStructureTest.java
+    java -jar junit5all.jar execute --disable-banner --disable-ansi-colors -cp . -cp checkthat.jar -c time.TimeStructureTest
+
+Compile & run test suite (needs Java 17+):
+    javac -cp ".;junit5all.jar;checkthat.jar" time\TimeTestSuite.java
+    java -jar junit5all.jar execute --disable-banner --disable-ansi-colors -cp . -cp checkthat.jar -c time.TimeTestSuite
+
+Notes:
+    On Linux/Mac systems, use : instead of ; as separator like this:
+        javac -cp ".:junit5all.jar:checkthat.jar" .......
+
+    If your terminal can properly display colours, you can omit the --disable-ansi-colors option.
+
+    The tested classes need to be compiled separately if you use the structural tester, as the latter do not directly refer to code in the former.
+
+    Detailed documentation: https://junit.org/junit5/docs/current/user-guide/
+
+    ; : ; : ; : ; : ; : ; : ; : ; : ; : ; : ; : ; : ; : ; : ; : ; : ; : ; : ; : ; : ; : ; : ; : ; : ; : ; : ; :
+
+Expected output:
+
+.
++-- JUnit Jupiter [OK]
++-- JUnit Vintage [OK]
+'-- JUnit Platform Suite [OK]
+  '-- TimeTestSuite [OK]
+    '-- JUnit Jupiter [OK]
+      +-- TimeStructureTest [OK]
+      | +-- constructor() [OK]
+      | +-- fieldMin() [OK]
+      | +-- fieldHour() [OK]
+      | '-- methodGetEarlier() [OK]
+      '-- TimeTest [OK]
+        +-- testGetHour() [OK]
+        +-- testGetMin() [OK]
+        +-- testSetHour() [OK]
+        +-- testSetMin() [OK]
+        '-- testEarlier(int, int, int, int, int, int) [OK]
+          +-- [1] 01, 02, 01, 02, 12, 34 [OK]
+          +-- [2] 01, 59, 01, 59, 12, 34 [OK]
+          '-- [3] 12, 34, 23, 59, 12, 34 [OK]
+
+[        11 tests found           ]
+[        11 tests successful      ]
