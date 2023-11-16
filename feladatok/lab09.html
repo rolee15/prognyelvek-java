@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="hu" xml:lang="hu">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="ELTE Informatikai Kar" />
+  <title>Programozási nyelvek Java</title>
+  <style>
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <style type="text/css">
+  body {
+      max-width: 100% !important;
+  }
+
+  pre > code
+  {
+      all: unset;
+  }
+
+  code
+  {
+      color: blue;
+      font-size: 14px;
+      white-space: pre;
+      border-radius: 3px;
+      font-family: Monaco, Menlo, Consolas, "Courier New", monospace;
+      padding: 2px 4px;
+
+      display: inline-block;
+
+      background-image: radial-gradient(ellipse farthest-corner at 50% 50%, #e4e4e4, #ffffff);
+  }
+
+
+  pre code,
+  code.sourceCode
+  {
+    	margin-left: 3em;
+    	padding: 0.5em;
+
+    	border: 0.1em green solid !important;
+
+      display: inline-block;
+  }
+
+  table {
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: 24px;
+      border-spacing: 0;
+      border-bottom: 2px solid black;
+      border-top: 2px solid black;
+      width: auto !important;
+  }
+
+  table th {
+      padding: 3px 10px;
+      background-color: white;
+      border-top: none;
+      border-left: none;
+      border-right: none;
+      border-bottom: 1px solid black;
+  }
+
+  table td {
+      padding: 3px 10px;
+      border-top: none;
+      border-left: none;
+      border-bottom: none;
+      border-right: none;
+  }
+
+  nav#TOC {
+      position: fixed;
+      top: .2em;
+      right: .2em;
+      border: 1px solid black;
+  }
+
+  h2#toc-title {
+      margin-top: 0em;
+  }
+
+  nav#TOC::after {
+    content: "";
+    clear: both;
+    display: table;
+  }
+
+  a {
+      color: blue;
+      text-decoration: underline !important;
+  }
+
+  </style>
+
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Programozási nyelvek Java</h1>
+<p class="subtitle">Gyakorlati feladatsor</p>
+<p class="author">ELTE Informatikai Kar</p>
+</header>
+<h1 class="hu" id="sablon">09. Sablon</h1>
+<h2 class="hu" id="feladatok-1">Feladatok</h2>
+<h3 class="hu" id="feladat">1. feladat</h3>
+<p>Készítsen a <code>MultiSetStructureTest</code> szerint olyan
+osztályt, amely <code>E</code> típusú elemek multiplicitásos halmazát
+reprezenzálja. Ennek adattagja leírja, hogy milyen elemből hány darab
+van a halmazban. Ezt az adatszerkezetet zsáknak (bag) is szokták
+nevezni.</p>
+<p>Az osztály konstruktora a paraméterül kapott elemekkel tölti fel
+kezdetben a zsákot.</p>
+<p>Elemeket az <code>add()</code> művelettel adhatunk a zsákhoz. Ha az
+elem még nem volt benne a zsákban, kerüljön bele <code>1</code>
+multiplictással, ha pedig már benne volt, akkor nőjön meg eggyel a
+multiplicitása. A visszatérési érték a megnövelt multiplicitás
+legyen.</p>
+<p>A <code>getCount()</code> a paraméter multiplicitását kérdezi le. Ha
+ez nem szerepel a zsákban, legyen <code>0</code> az eredmény.</p>
+<p>Az <code>intersect()</code> két zsák metszetét állítja elő. Ebben
+azok az elemek lesznek benne, amelyek mindkettőben megtalálhatóak, ennek
+a multiplicitása a kisebbik. A metódus egyik eredeti zsákot se
+változtassa meg, az eredmény egy új <code>MultiSet</code> objektum
+legyen.</p>
+<p>A <code>countExcept()</code> megadja a zsákban található összes elem
+darabszámát (multiplicitással együtt), de a paraméter elemeit nem veszi
+figyelembe.</p>
+<p>A következő módon tesztelendő:</p>
+<ul>
+<li><code>multiSetInteger</code>, <code>multiSetString</code>: a névben
+megadott típusú zsák
+<ul>
+<li>Adjunk hozzá pár elemet az <code>add()</code> metódussal, illetve a
+konstruktorban, és vizsgáljuk meg a <code>getCount()</code>
+eredményét.</li>
+</ul></li>
+<li><code>intersect</code>, <code>countExcept</code>: hozzunk létre két
+zsákot, és próbáljuk ki rajtuk az <code>intersect()</code> és
+<code>countExcept()</code> függvényeket</li>
+</ul>
+<h3 class="hu" id="feladat-1">2. feladat</h3>
+<p>Az <code>OrganiserStructureTest</code> alapján készítsünk olyan
+osztályt, amely adatokat tárol sorban az <code>elems</code>
+adattagjában. A másik adattag pozíciópárokat (cseréket) tartalmaz.</p>
+<p>A konstruktor a megkapott adatok alapján feltölti az
+<code>elems</code> adattagot. Kezdetben cserék nincsenek beállítva.</p>
+<ul>
+<li>A konstruktor kódjára figyelmeztetést fog adni a fordítóprogram.
+Mivel a megvalósításban most biztosan nem fog veszélyes kód szerepelni,
+a konstruktor megkaphatja a <code>@SafeVarargs</code> annotációt.</li>
+</ul>
+<p>A <code>get()</code> metódusnak legyen kétféle paraméterezése.</p>
+<ul>
+<li>Az egyik az <code>elems</code> egy érvényes indexét veszi át, és
+visszaadja az indexelt elemet. Feltételezhető, hogy a paraméter
+érvényes.</li>
+<li>A másik változat mindegyik eltárolt elemet visszaadja egy listában.
+<ul>
+<li>Vigyázzunk, hogy ne szivárogjon ki az osztály belső állapota!</li>
+</ul></li>
+</ul>
+<p>Az <code>addSwap()</code> művelet egy egész számokból álló párt ad a
+<code>swaps</code> adattaghoz.</p>
+<ul>
+<li>Mivel a Javának nincsen beépített pár/rendezett n-es adatszerkezete,
+az adattag <a
+href="https://docs.oracle.com/en/java/javase/20/docs/api/java.base/java/util/Map.Entry.html"><code>Map.Entry</code></a>
+típusú elemekből áll.
+<ul>
+<li>Ez <code>Integer</code> típusparamétereket kap, mert
+típusparaméterek nem lehetnek primitívek.</li>
+</ul></li>
+<li>A <a
+href="https://docs.oracle.com/en/java/javase/20/docs/api/java.base/java/util/Map.html#entry(K,V)">Map.entry(from,
+to)</a> hívással készíthető ilyen “pár”.</li>
+</ul>
+<p>A <code>swap()</code> segédmetódus cserélje meg a két megadott indexű
+elemet az <code>elems</code> adattagban.</p>
+<ul>
+<li>Ez a metódus ne látszódjon az osztályon kívül.</li>
+<li>Tipp: átmeneti változó tárolja el az egyik értéket.</li>
+</ul>
+<p>A <code>runSwaps()</code> sorban végrehajtja a <code>swaps</code>
+listában leírt cseréket.</p>
+<ul>
+<li>Az egyes cserék végrehajtásához a <code>swap()</code> hívandó
+meg.</li>
+</ul>
+<p>Az osztály szöveges reprezentációja ilyen alakú legyen:
+<code>[1 3 5 7 9 ]</code> vagy <code>[d a c b e ]</code>.</p>
+<h3 class="hu" id="feladat-2">3. feladat</h3>
+<p>A <code>RangedStackSuite</code> alapján készítsünk vermet ábrázoló
+osztályt, amelybe egyszerre több elem tehető be/vehető ki.</p>
+<p>Lehessen üresen is elkészíteni, és másoló konstruktorral is. Ez
+utóbbi egy másik <code>RangedStack</code> példányhoz hasonló tartalmú
+vermet készít el, de az adattagjaik ne egy közös listára mutassanak
+(aliasing).</p>
+<p>A következő módon tesztelendő.</p>
+<ul>
+<li><code>empty</code>: készüljön el egy üres <code>RangedStack</code>
+és egy másolata
+<ul>
+<li>Mindkét esetben: akárhány elemet veszünk ki (pl. <code>0</code>,
+<code>1</code> vagy <code>100</code> elemet egyszerre), a kimenet üres
+lista.</li>
+</ul></li>
+<li><code>testString</code>, <code>testInteger</code>: mindkét típusra
+készüljön el <code>6</code> elemből egy <code>RangedStack</code> (pl.
+egész típus esetén a <code>2</code>, <code>4</code>, <code>6</code>,
+<code>8</code>, <code>10</code>, <code>12</code> elemekből), és legyen
+egy másolata is
+<ul>
+<li>Az eredetiből vegyünk ki sorban <code>1</code>, majd <code>2</code>,
+majd <code>3</code>, majd <code>100</code> elemet. Az elvárt kimenetek
+sorban <code>[12]</code>, <code>[10, 8]</code>, <code>[6, 4, 2]</code>
+és az üres lista.</li>
+<li>A másolatból vegyünk ki <code>100</code> elemet, majd megint
+<code>100</code> elemet. Az első lépés elvárt kimenete
+<code>[12, 10, 8, 6, 4, 2]</code>, a másodiké egy üres listaí.</li>
+</ul></li>
+</ul>
+</body>
+</html>

@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="hu" xml:lang="hu">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="ELTE Informatikai Kar" />
+  <title>Programozási nyelvek Java</title>
+  <style>
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <style type="text/css">
+  body {
+      max-width: 100% !important;
+  }
+
+  pre > code
+  {
+      all: unset;
+  }
+
+  code
+  {
+      color: blue;
+      font-size: 14px;
+      white-space: pre;
+      border-radius: 3px;
+      font-family: Monaco, Menlo, Consolas, "Courier New", monospace;
+      padding: 2px 4px;
+
+      display: inline-block;
+
+      background-image: radial-gradient(ellipse farthest-corner at 50% 50%, #e4e4e4, #ffffff);
+  }
+
+
+  pre code,
+  code.sourceCode
+  {
+    	margin-left: 3em;
+    	padding: 0.5em;
+
+    	border: 0.1em green solid !important;
+
+      display: inline-block;
+  }
+
+  table {
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: 24px;
+      border-spacing: 0;
+      border-bottom: 2px solid black;
+      border-top: 2px solid black;
+      width: auto !important;
+  }
+
+  table th {
+      padding: 3px 10px;
+      background-color: white;
+      border-top: none;
+      border-left: none;
+      border-right: none;
+      border-bottom: 1px solid black;
+  }
+
+  table td {
+      padding: 3px 10px;
+      border-top: none;
+      border-left: none;
+      border-bottom: none;
+      border-right: none;
+  }
+
+  nav#TOC {
+      position: fixed;
+      top: .2em;
+      right: .2em;
+      border: 1px solid black;
+  }
+
+  h2#toc-title {
+      margin-top: 0em;
+  }
+
+  nav#TOC::after {
+    content: "";
+    clear: both;
+    display: table;
+  }
+
+  a {
+      color: blue;
+      text-decoration: underline !important;
+  }
+
+  </style>
+
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Programozási nyelvek Java</h1>
+<p class="subtitle">Gyakorlati feladatsor</p>
+<p class="author">ELTE Informatikai Kar</p>
+</header>
+<h1 class="en hu" id="list-set-map">08. <code>List</code>,
+<code>Set</code>, <code>Map</code></h1>
+<h2 class="en hu" id="demo-1">Demo</h2>
+<h3 class="hu" id="demó">1. demó</h3>
+<p>Készítsük el a <code>WorkerScheduleStructureTest</code> szerint a
+megadott osztályt. Ennek adattagja leírja, hogy melyik héten kik
+dolgoznak. A heteket a hívó fél <code>1</code> kezdéssel számozza, de
+belül <code>0</code> kezdéssel tároljuk el.</p>
+<p>Dolgozókat két <code>add()</code> művelettel adunk a
+munkarendhez.</p>
+<ul>
+<li>Az egyik egy specifikus héthez adja hozzá a második paraméterben
+megadott dolgozókat.
+<ul>
+<li>Hozzáadhatók egyenként is, de a <code>HashSet</code> osztály
+<code>addAll()</code> metódusával is.</li>
+<li>Ha a hét még nem szerepel a <code>weekToWorkers</code> adattagban,
+be kell tenni dolgozók nélkül (üres halmazt hozzárendelve).</li>
+</ul></li>
+<li>A másik több hetet add meg, a dolgozókat mindegyikhez hozzá kell
+adni.
+<ul>
+<li>Ez a metódus hívjon át az előzőre.</li>
+</ul></li>
+</ul>
+<p>A másik két metódus megadja, hogy egy adott dolgozó szerepel-e a
+munkarend egy megadott napján, illetve megadja az összes olyan napot,
+amelyeken egy adott dolgozó dolgozik.</p>
+<ul>
+<li>Az utóbbihoz használjuk a <code>HashMap</code> osztály
+<code>entrySet()</code> metódusát a kulcs-érték párok bejárásához.
+<ul>
+<li>Ez <code>Entry&lt;kulcs típusa, érték típusa&gt;</code> értékeket
+jár be (<code>java.util.Map.Entry</code>).</li>
+</ul></li>
+</ul>
+<p>A következő módon tesztelendő.</p>
+<ul>
+<li><code>emptySchedule</code>: üres munkarendben senki nem dolgozik
+semelyik napon
+<ul>
+<li>Itt <code>assertFalse(&lt;feltétel&gt;)</code> is használható, ami
+rövidebb, mint a szintén érvényes
+<code>assertEquals(false, &lt;feltétel&gt;)</code>.</li>
+</ul></li>
+<li><code>schedule</code>: vegyünk fel néhány dolgozót mindkét
+<code>add()</code> használatával, és aztán próbáljuk ki a két másik
+metódust.
+<ul>
+<li>A második változathoz néhány <code>ArrayList</code>re van szüksége.
+Ezek összeállíthatók úgy, hogy minden névre meghívjuk az
+<code>add</code> metódust.</li>
+<li>Összeállítható így is:
+<code>new ArrayList&lt;&gt;(List.of(name1, name2, ...))</code>. Ebben
+<code>List</code> csomagja szintén <code>java.util</code>.</li>
+<li>A teszt működtethető a szokásos módon
+<code>@ParameterizedTest</code> segítségével is, amivel rövidebb és
+átfogóbb megoldás adható.</li>
+</ul></li>
+</ul>
+<h2 class="hu" id="feladatok-1">Feladatok</h2>
+<h3 class="hu" id="feladat">1. feladat</h3>
+<p>A következő feladatok kódját a <code>ListUtilStructureTest</code>
+szerint kell elkészíteni.</p>
+<p>A <code>divisors()</code> metódus a paraméterként kapott nemnegatív
+egész szám osztóit adja vissza egy <code>ArrayList</code>
+adatszerkezetben.</p>
+<p>Tesztelendő <code>0</code>, <code>1</code> és <code>64</code>
+bemenetekre.</p>
+<h3 class="hu" id="feladat-1">2. feladat</h3>
+<p>A <code>withSameStartEnd()</code> metódus szövegeket kap meg
+<code>ArrayList</code> adatszerkezetben, és ezek közül azokat adja
+vissza egy másik <code>ArrayList</code>ben, amelyek nem üresek, nem is
+<code>null</code> értékek, és első és utolsó karakterük megegyezik.</p>
+<p>A tesztelés egy üres <code>ArrayList</code>tel induljon. Erre a
+<code>withSameStartEnd()</code> hívásnak üres listát kell adnia. Ezután
+ugyanebben a metódusban sorban adjuk a listához az alábbi szövegeket;
+minden hozzáadás után tesztelendő, mit ad ki a hívás.</p>
+<ul>
+<li>üres szöveg (a kimenet nem változik meg)</li>
+<li><code>null</code> (a kimenet nem változik meg)</li>
+<li>egyetlen szóközt tartozó szöveg (belekerül a kimenetbe)</li>
+<li>az <code>x</code> szöveg (belekerül a kimenetbe)</li>
+<li>üres szöveg (a kimenet nem változik meg)</li>
+<li>a <code>different start and end?</code> szöveg (a kimenet nem
+változik meg)</li>
+<li>az <code>ends and starts the same</code> szöveg (belekerül a
+kimenetbe)</li>
+</ul>
+<h3 class="hu" id="feladat-2">3. feladat</h3>
+<p>A <code>maxToFront()</code> metódus a megkapott lista ábécérendben
+utolsó elemét helyezze át a lista elejére.</p>
+<ul>
+<li>A listát helyben kell megváltoztatni, ne jöjjön létre új lista.</li>
+<li>Ha a lista <code>null</code> vagy üres, nincsen teendő.</li>
+<li>Tipp: <a
+href="https://docs.oracle.com/en/java/javase/20/docs/api/java.base/java/util/Collections.html#max(java.util.Collection)"><code>Collections.max()</code></a>.</li>
+<li>Tipp: <a
+href="https://docs.oracle.com/en/java/javase/20/docs/api/java.base/java/util/ArrayList.html#method-summary">az
+<code>ArrayList</code> osztály megfelelő metódusaival</a> el lehet
+távolítani a listából a megtalált értéket, majd vissza lehet tenni a
+<code>0</code> indexre.</li>
+</ul>
+<p>A következő bemenetek tesztelendők.</p>
+<ul>
+<li><code>null</code>: <code>assertX</code> jellegű hívásra nincsen
+szükség, csak meg kell hívni a metódust</li>
+<li>üres lista</li>
+<li>egyelemű lista</li>
+<li>három szöveget tartalmazó lista: <code>can, you, succeed</code>,
+erre az elvárt kimenet <code>you, can, succeed</code></li>
+<li>három szöveget tartalmazó lista: <code>-123, 2000, 100</code>, erre
+az elvárt kimenet <code>2000, 100, -123</code></li>
+</ul>
+<h3 class="hu" id="feladat-3">4. feladat</h3>
+<p>A <code>CharacterStatisticsStructureTest</code> osztály alapján
+dolgozzunk.</p>
+<p>Az osztály konstruktora egy szöveget kap meg, és az ebben szereplő
+összes karakterre beteszi annak előfordulási gyakoriságát az
+adattagba.</p>
+<ul>
+<li>Tipp: <a
+href="https://docs.oracle.com/en/java/javase/20/docs/api/java.base/java/lang/String.html#toCharArray()">a
+<code>String</code> osztály <code>toCharArray()</code> metódusa</a>
+segítségével könnyen elérhetők a szöveg karakterei.</li>
+<li>Tipp: a <code>HashMap</code> osztály <code>getOrDefault()</code>
+adattagja is jól használható itt. Oldjuk meg a feladatot a használatával
+és a használata nélkül is.</li>
+</ul>
+<p>A <code>getCount()</code> metódus az adott karakter gyakoriságát adja
+meg.</p>
+<p>Szintén elkészítendő egy <code>toString()</code> implementáció az
+osztályhoz, ami a karakterek gyakoriságának szöveges reprezentációját
+mutatja. A metódus kapja meg az <code>@Override</code> annotációt. A
+gyakoriságok az <code>entrySet()</code> sorrendjében jelenjenek meg
+benne.</p>
+<p>Tesztelés: az alábbi szövegekre mind vizsgáljuk meg legalább egy
+karakter gyakoriságát.</p>
+<ul>
+<li>Kipróbálandó az az eset is, amikor a megadott karakter nem szerepel
+a szövegben.</li>
+</ul>
+<p>A <code>toString()</code> kimenete szintén megvizsgálandó.</p>
+<ul>
+<li>A kimenetek az alábbiakhoz hasonlóak lesznek, de a karakterek
+sorrendje függhet a rendszertől.</li>
+<li>A kimenetben a szóközöknek is betűre pontosan egyezniük kell.</li>
+</ul>
+<p>A szövegek a következők:</p>
+<ul>
+<li>üres szöveg: üres kimenet</li>
+<li><code>aaaaaaaa</code>: <code>a(8)</code></li>
+<li><code>HgFeDcBa</code>:
+<code>a(1) B(1) c(1) D(1) e(1) F(1) g(1) H(1)</code></li>
+<li><code>a?!_#@{}</code>:
+<code>@(1) a(1) !(1) #(1) {(1) }(1) ?(1) _(1)</code></li>
+<li><code>Hello world!</code>:
+<code>(1) !(1) r(1) d(1) e(1) w(1) H(1) l(3) o(2)</code>
+<ul>
+<li>Itt az első karakter a szóköz (<code></code>).</li>
+</ul></li>
+</ul>
+</body>
+</html>
