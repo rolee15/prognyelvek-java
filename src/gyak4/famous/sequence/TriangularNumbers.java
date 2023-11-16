@@ -3,11 +3,18 @@ package famous.sequence;
 public class TriangularNumbers {
 
     public static int getTriangularNumber(int n) {
-        int acc = 0;
-        for (int i = 1; i <= n; i++) {
-            acc += i;
+        if (n < 1) {
+            return 0;
         }
 
-        return acc;
+        return n + getTriangularNumber(n - 1);
+    }
+
+    public static int getTriangularNumberAlternative(int n) {
+        if (n < 1) {
+            return 0;
+        }
+
+        return n * (n + 1) / 2;
     }
 }

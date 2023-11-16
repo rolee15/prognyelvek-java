@@ -19,10 +19,25 @@ public class TriangularNumbersTest {
     }
 
     @Test
+    public void testTriangular2() {
+        assertEquals(3, TriangularNumbers.getTriangularNumber(2));
+    }
+
+    @Test
+    public void testTriangular3() {
+        assertEquals(6, TriangularNumbers.getTriangularNumber(3));
+    }
+
+    @Test
+    public void testTriangular4() {
+        assertEquals(10, TriangularNumbers.getTriangularNumber(4));
+    }
+
+    @Test
     public void testTriangular100() {
         assertEquals(5050, TriangularNumbers.getTriangularNumber(100));
     }
-    
+
     @Test
     public void testTriangularMinusOne() {
         assertEquals(0, TriangularNumbers.getTriangularNumber(-1));
@@ -31,6 +46,6 @@ public class TriangularNumbersTest {
     @Test
     public void testTriangularMinusAny() {
         assertEquals(0, TriangularNumbers.getTriangularNumber(-100));
-    }    
+    }
 
 }
