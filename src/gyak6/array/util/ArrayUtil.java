@@ -46,8 +46,17 @@ public class ArrayUtil {
     }
 
     public static int[] minMax(int[] nums) {
+        if (nums.length == 0)
+            return new int[] {0, 0};
+
         int min = Integer.MAX_VALUE;
         int max = Integer.MIN_VALUE;
+
+        for (int num : nums) {
+            if (num > max) max = num;
+            if (num < min) min = num;
+        }
+
         int ret[] = { min, max };
         return ret;
     }
