@@ -1,9 +1,10 @@
 package time;
 
 import static org.junit.jupiter.api.Assertions.*;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.api.*;
+import org.junit.jupiter.params.*;
+import org.junit.jupiter.params.provider.*;
+import check.CheckThat;
 
 public class TimeTest {
     @Test
@@ -30,7 +31,7 @@ public class TimeTest {
         assertEquals(34, time.getMin());
     }
 
-    @ParameterizedTest
+    @ParameterizedTest(name = "{2}:{3} vs {4}:{5} ⟹ {0}:{1}")
     @CsvSource(textBlock = """
         01, 02,   01, 02, 12, 34
         01, 59,   01, 59, 12, 34

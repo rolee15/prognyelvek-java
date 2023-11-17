@@ -1,37 +1,38 @@
 
-Download: https://repo1.maven.org/maven2/org/junit/platform/junit-platform-console-standalone/1.10.0/junit-platform-console-standalone-1.10.0.jar
-Rename:   junit-platform-console-standalone-1.10.0.jar --> junit5all.jar
+Preparation.
+    Required:   Java 17+
+    Best now:   Java 21
 
-Compile & run functional test:
-    javac -cp ".;junit5all.jar;checkthat.jar" time\TimeTest.java
-    java -jar junit5all.jar execute --disable-banner --disable-ansi-colors -cp . -cp checkthat.jar -c time.TimeTest
+    Download:   https://repo1.maven.org/maven2/org/junit/platform/junit-platform-console-standalone/1.10.0/junit-platform-console-standalone-1.10.0.jar
+    Rename as:  junit5all.jar
 
-Compile & run structural test:
-    javac time\Time.java
-    javac -cp ".;junit5all.jar;checkthat.jar" time\TimeStructureTest.java
-    java -jar junit5all.jar execute --disable-banner --disable-ansi-colors -cp . -cp checkthat.jar -c time.TimeStructureTest
+On Windows, the commands are in:    On Linux/Mac:
+    check_structural.bat                ./check_structural.sh
+    check_functional.bat                ./check_functional.sh
+    check_suite.bat                     ./check_suite.sh
 
-Compile & run test suite (needs Java 17+):
-    javac -cp ".;junit5all.jar;checkthat.jar" time\TimeTestSuite.java
-    java -jar junit5all.jar execute --disable-banner --disable-ansi-colors -cp . -cp checkthat.jar -c time.TimeTestSuite
+On Linux/Mac, make them executable before running:
+    chmod +x check*.sh
 
-Notes:
-    On Linux/Mac systems, use : instead of ; as separator like this:
-        javac -cp ".:junit5all.jar:checkthat.jar" .......
+You may add two parameters: one for property definitions and one for JUnit options.
+    check_structural.bat "-Dlang=HU" "--disable-ansi-colors"
 
-    If your terminal can properly display colours, you can omit the --disable-ansi-colors option.
+    -Dlang=HU or -Dlang=EN  For structural checker error messages.
+    -Derrors=verbose        If you really, REALLY want to see the full stack trace.
 
-    The tested classes need to be compiled separately if you use the structural tester, as the latter do not directly refer to code in the former.
+    --disable-ansi-colors   For monochrome terminals.
 
-    Detailed documentation: https://junit.org/junit5/docs/current/user-guide/
+You may use two more parameters for the targets.
+    check_structural.bat "" "" "time/TimeStructureTest.java" "time.TimeStructureTest"
 
-    ; : ; : ; : ; : ; : ; : ; : ; : ; : ; : ; : ; : ; : ; : ; : ; : ; : ; : ; : ; : ; : ; : ; : ; : ; : ; : ; :
+See also: JUnit 5 user guide: https://junit.org/junit5/docs/current/user-guide/
 
-Expected output:
+; : ; : ; : ; : ; : ; : ; : ; : ; : ; : ; : ; : ; : ; : ; : ; : ; : ; : ; : ; : ; :
+
+Expected output of the full suite:
 
 .
 +-- JUnit Jupiter [OK]
-+-- JUnit Vintage [OK]
 '-- JUnit Platform Suite [OK]
   '-- TimeTestSuite [OK]
     '-- JUnit Jupiter [OK]
@@ -46,9 +47,10 @@ Expected output:
         +-- testSetHour() [OK]
         +-- testSetMin() [OK]
         '-- testEarlier(int, int, int, int, int, int) [OK]
-          +-- [1] 01, 02, 01, 02, 12, 34 [OK]
-          +-- [2] 01, 59, 01, 59, 12, 34 [OK]
-          '-- [3] 12, 34, 23, 59, 12, 34 [OK]
+          +-- 01:02 vs 12:34 ⟹ 01:02 [OK]
+          +-- 01:59 vs 12:34 ⟹ 01:59 [OK]
+          '-- 23:59 vs 12:34 ⟹ 12:34 [OK]
 
+<some lines of summary skipped>
 [        11 tests found           ]
 [        11 tests successful      ]

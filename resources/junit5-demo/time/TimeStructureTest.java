@@ -2,7 +2,11 @@ package time;
 
 import static check.CheckThat.*;
 import static check.CheckThat.Condition.*;
+import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.condition.*;
+import org.junit.jupiter.params.*;
+import org.junit.jupiter.params.provider.*;
 import check.CheckThat;
 
 public class TimeStructureTest {
@@ -13,6 +17,7 @@ public class TimeStructureTest {
     }
 
     @Test
+    @DisabledIf(notApplicable)
     public void fieldHour() {
         it.hasField("hour", ofType("int"))
             .thatIs(INSTANCE_LEVEL, MODIFIABLE, VISIBLE_TO_NONE)
@@ -20,6 +25,7 @@ public class TimeStructureTest {
     }
 
     @Test
+    @DisabledIf(notApplicable)
     public void fieldMin() {
         it.hasField("min", ofType("int"))
             .thatIs(INSTANCE_LEVEL, MODIFIABLE, VISIBLE_TO_NONE)
@@ -27,12 +33,14 @@ public class TimeStructureTest {
     }
 
     @Test
+    @DisabledIf(notApplicable)
     public void constructor() {
         it.hasConstructorWithParams("int", "int")
             .thatIs(VISIBLE_TO_ALL);
     }
 
     @Test
+    @DisabledIf(notApplicable)
     public void methodGetEarlier() {
         it.hasMethod("getEarlier", withParams("Time"))
             .thatIs(FULLY_IMPLEMENTED, INSTANCE_LEVEL, VISIBLE_TO_ALL)
