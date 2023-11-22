@@ -5,6 +5,8 @@ import static check.CheckThat.Condition.*;
 import org.junit.jupiter.api.*;
 import check.CheckThat;
 
+import planet.plant.Planter;
+
 public class PlanterCompulsoryStructureTest {
     @BeforeAll
     public static void init() {
