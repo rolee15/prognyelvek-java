@@ -29,6 +29,6 @@ public class PlanterMain {
     }
 
     private static void printPlanet(Planet planet) {
-        System.out.println("Number of plants on " + planet.toString() + ": " + planter.getPlantCount(planet));
+        System.out.println("Number of plants on " + planet.niceName() + ": " + planter.getPlantCount(planet));
     }
 }

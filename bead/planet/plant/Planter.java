@@ -22,7 +22,7 @@ public class Planter {
 
     public void movePlants(int count, Planet source, Planet target) {
         if (plantCounts[source.ordinal()] < count) {
-            throw new IllegalArgumentException("Not enough plants on " + target.toString() + ": " + count);
+            throw new IllegalArgumentException("Not enough plants on " + target.niceName() + ": " + count);
         }
 
         plantCounts[source.ordinal()] -= count;

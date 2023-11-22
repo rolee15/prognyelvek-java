@@ -10,9 +10,7 @@ public enum Planet {
     URANUS,
     NEPTUNE;
 
-    // TODO: Adding the toString method makes the structural unit test fail
-    @Override
-    public String toString() {
+    public String niceName() {
         switch (this) {
             case MERCURY:
                 return "Mercury";
