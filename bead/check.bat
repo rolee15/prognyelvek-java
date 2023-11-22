@@ -34,5 +34,9 @@ if %EXTENDED_MODE%==1 (
 
 @ECHO ON
 javac -cp ".;junit5all.jar;checkthat.jar" %SRC_FILES%
+
+@ECHO OFF
 if %ERRORLEVEL% GEQ 1 EXIT /B 1
+
+@ECHO ON
 java -javaagent:checkagent.jar -jar junit5all.jar execute -E junit-vintage --disable-banner -cp . -cp checkthat.jar %TEST_CLASSES%
