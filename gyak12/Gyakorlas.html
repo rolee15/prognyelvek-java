@@ -1,0 +1,237 @@
+<html lang="hu"><meta charset="utf8"><head><style>body {
+   color: black;
+}
+</style></head><body><h1 id="java-gyakorl-s">JAVA gyakorlás</h1>
+<h2 id="tv-app">TV app</h2>
+<p>A feladat egy olyan JAVA program írása, amely bemutatja egy <em>TV app</em> nevű alkalmazás működését. A (részben) kész megoldásod a melléket <code>Test</code> osztállyal ellenőrizheted. Részleges megoldás teszteléséhez, kommenteld ki a még nem kész programrészekre vonatkozó teszteket!</p>
+<p>A forradalmi <em>TV app</em> új megközelítést visz a tévénézés világába, egységes platformot biztosítva tv-, film- és sorozatnézésre. Az alkalmazásban elérhető műsorokat egy gombnyomásra elindíthatjuk, és előfizethetünk a hozzájuk tartozó csatornára. <em>(Például, ha a legújabb Trónok harca részt szeretnéd megnézni, nem kell letöltened a HBO GO alkalmazást majd regisztrálni és fizetni, mivel az alkalmazás mindent elintéz helytted. Így azonnal nézni kezdheted.)</em> Természetesen, ezen funkciókhoz először meg kell adnod valamilyen fizetési módot, de minden más automatikus lesz. Hogy ez megvalósulhasson, a szükséges programrészeket Neked kell implementálni.</p>
+<h3 id="-tv-wallet-"><code>tv.Wallet</code></h3>
+<p>Készíts egy <code>tv.Wallet</code> (<em>továbbiakban tárca</em>) osztály, amely az alkalmazáson belüli fizetést teszi lehetővé. Az tárca a <code>tv.CreditCard</code> osztállyal (<em>ezt mindenki előre megkapja a feladattal</em>) fog kommunikálni és pénzt kérni onnan, ha valamiért fizetnünk kell. Ez azért szükséges, hogy az alkalmazásnak ne kelljen közvetlenül bankkártyákat kezelnie, a fizetéshez elegendő legyen a csak tárcából &quot;kivenni&quot; a pénzt.</p>
+<p>A tárca fogja nyilvántartani a rendelkezésre álló összegünket (<em>egy adattag formályában</em>).</p>
+<p>Az osztálynak két metódusa van: egy a tárcából való fizetésre (<code>draw</code>), és egy a tárcába való pénz betételre (<code>topUp</code>). A metódusok paramétereinek típusát a mellékelt <code>test.Test</code> osztály <code>testWallet</code> függvényében leírt tesztek alapján határozd meg.</p>
+<ul>
+<li>A <code>draw</code> metódusnak nincs visszatérési értéke. A paraméterként kapott összegről először ellenőrzi, hogy nem-e nagatív, majd ha van elegendő pénz a tárcában, levonja a &quot;kivett&quot; összeget. Ha a kivenni kívánt összeg nagatív vagy nincs elegendő pénz a tárcában, kivételt dob (<em>plusz pontot ér, ha saját kivételt definiálsz err a célra</em>).</li>
+<li>A <code>topUp</code> metódus létrehoz egy <code>CreditCard</code> objektumot egy érvényes kártyaszámmal és a nem negatív összeggel, amivel meg szeretnénk terhelni a kártyát (<em>negatív összeg esetén ugyan úgy hibát kell dobni, mint az előző metódusban</em>). Mivel a <code>CreditCard</code> osztály egy erőforrás (implementálja a <code>AutoClosable</code> interfészt), a használat után fel kell szabadítani (<em>be kell zárni</em>).</li>
+</ul>
+<h3 id="-tv-channel-"><code>tv.Channel</code></h3>
+<p>A <em>TV app</em> alkalmazásban a műsorokat, műsor szolgáltatókon keresztül érhetjük el, akik a tartalmaikat saját &quot;csatornájukon&quot; teszik elérhetővé. Mivel a csatornák belső implementációját nem szeretnénk kiszivárogtatni vagy megszabni, szükség lesz egy közös interfésztre (<code>tv.Channel</code>) a velük való kommunikációhoz. <em>(A <code>tv.Channel</code> interfészt megvalósító osztályokat egy későbbi feladatrészben részletezzük.)</em></p>
+<p>Egy csatornának a három adatot kell biztosítania a következő metódusok segítségével:</p>
+<ul>
+<li><code>getName()</code>, mely a csatorna nevével tér vissza</li>
+<li><code>getPrice()</code>, mely a csatorna előfizetés árával tér vissza</li>
+<li><code>getShows()</code>, mely a csatorna által kínált műsorok listájával tér vissza (<em><code>java.util.List</code>-et kell használni a megfelelő típusparaméterrel: <code>tv.Show</code>, ld. lejjebb</em>)</li>
+</ul>
+<h3 id="-tv-show-"><code>tv.Show</code></h3>
+<p>Készíts egy <code>tv.Show</code> osztályt, amely egy TV műsort fog reprezentálni. Az osztálynak egyetlen értéket kell (&quot;<em>konstansként</em>&quot;) tárolnia: a műsor nevét. Ehhez rendelkezik egy műsornevet (<em>string</em>) váró konstruktorral és egy <code>getTitle</code> getter metódussal. <em>(A <code>toString</code> metódus felüldefiniálása plusz pontot ér.)</em> A tárolt névnek megváltoztathatatlannak kell lennie!</p>
+<h3 id="-tv-providers-"><code>tv.providers.*</code></h3>
+<p>Az elérhető szolgáltatók implementációja a <code>tv.providers</code> csomagba fog kerülni. Ez jelen esetben három, <em>package-private</em> osztály létrehozását jelenti a megadott csomagon belül: <code>Starz</code>, <code>Showtime</code> és <code>HBO</code>. A szolgáltatók csatirnáinak le lehet kérni a nevét, előfizetés árát valamint a műsorlistájukat (<em>ld.</em> <code>tv.Channel</code>).</p>
+<ul>
+<li><code>Starz</code>
+csatorna neve: <em>Starz</em>
+előfizetés ára: <em>10</em>
+műsorok: <em>Outlander</em>, <em>Battlestar Galactica</em></li>
+<li><code>Showtime</code>
+csatorna neve: <em>Showtime</em>
+előfizetés ára: <em>7</em>
+műsorok: <em>Shameless</em></li>
+<li><code>HBO</code>
+csatorna neve: <em>HBO</em>
+előfizetés ára: <em>5</em>
+műsorok: <em>Game of Thrones</em>, <em>Westworld</em></li>
+</ul>
+<p>Ezek az adatok -- jelen esetben -- nem fognak változni, így -- egymástól függetlenül -- közvetlenül az osztályok implementációjába is beleírhatjuk. <em>(Szebb megoldásként egy abszztrakt szülőosztályban definiálhatjuk az egységes metódusokat, plusz pont fejében. A szintén plusz pontot érő <code>toString</code> metódus felüldefiniálása szintén opcionális.)</em></p>
+<h3 id="-tv-providers-channelfactory-"><code>tv.providers.ChannelFactory</code></h3>
+<p>Mivel egy csatornát csak egyszer szabad létrehozni (<em>két egyforma csatorna nem megengedett</em>), ezért létre kell hoznunk egy <em>publikus</em> csatornákat példányosító osztályt (<code>tv.providers.ChannelFactory</code>).</p>
+<p>Ehhez szükség lesz továbbá egy <code>enum Provider</code> felsoroló is, mely tartalmazza a meglévő csatornáinkat (<code>HBO</code>, <code>SHOWTIME</code>, <code>STARZ</code>). <em>(A felsorolót a <code>ChannelFactory</code> osztályban is definiálhatod.)</em></p>
+<p>A <code>ChannelFactory</code> osztály egyetlen osztály szintű (<em>statikus</em>) <code>getChannel</code> metódussal rendelkezzen. A metódus egyetlen <code>Provider</code> típusú paramétert vár és visszatér a paraméterben megadott osztály egy példányával.</p>
+<p>Ahhoz, hogy minden csatorna csak egyszer legyen példányosítva, hozz létre egy szintén <em>statikus</em>, <em>rejtett</em> <code>java.util.Map</code> típusú adattagot, melyben minden szolgáltatóhoz (<em><code>Provider</code> értékei</em>) eltárolod a csatornája (<em><code>Channel</code> implementációi</em>) egyetlen példányát. <em>(Alternatív megoldásként a switch-case szerkezet szintén elfogadott, de kevesebb pontot ér.)</em></p>
+<h3 id="-tv-tvapp-"><code>tv.TvApp</code></h3>
+<p>Végül a <code>tv.TvApp</code> osztály implementációja következik. Ez az osztály fogja használni a tárcánkat, így adattag szinten rendelkeznie kell egy tárca (<code>Wallet</code>) objektummal, melyet konstruktor paraméterként kap meg. Szintén itt lesznek nyilvántartva az elérhető csatornák is és az is, hogy ezek közül melyekre fizettünk elő (<em>erre egy <code>Map&lt;Channel,Boolean&gt;</code> adatszerkezet jó választás lehet, melyet a konstruktorban inicializálhatunk <code>false</code> értékekre</em>).</p>
+<p>Az osztály két publikus metódussal rendelkezik:</p>
+<ul>
+<li><code>browseAllShows()</code>: visszatér az összes műsorral (<code>List&lt;TvShow&gt;</code>, <em>minden csatornát beleértve</em>)</li>
+<li><code>searchShow(String)</code>: Egy műsor címet vár paraméterül és visszatér egy <code>TvShow</code> példánnyal ha van egyező nevű műsor; ellenkező esetben hibát dob</li>
+</ul>
+<h3 id="-tv-tvshowimpl-"><code>tv.TvShowImpl</code></h3>
+<p>Azt szeretnénk elérni, hogy a felhasználó anélkül tudjon megnézni egy műsort, hogy foglalkoznia kelljen azzal, hogy melyik csatornán érhető el és előfizetett-e már oda. E célra szükség lesz egy &quot;összekötő&quot; (<code>tv.TvShowImpl</code>) osztályra, amely tartalmazza, hogy egy adott műsor melyik csatornához tartozik.</p>
+<p>Hozz létre egy <em>package-private</em> <code>tv.TvShowImpl</code> osztályt, mely a <code>Show</code> osztályból származik és egyben implementálja a <code>TvShow</code> interfészt is (<em>utóbbit mindenki előre megkapja a feladattal</em>). <em>(A <code>TvShowImpl</code> osztályt privát beágyazott osztályként a <code>tv.TvApp</code> osztályba is elhelyezhető.)</em></p>
+<p>Az osztáy konstruktora két paramétert vár: a műsor címét (<em>string</em>, <em>a szülő osztályt is ezzel kell inicializálni /super/</em>) és a csatornát (<em><code>Channel</code> objektum</em>) melyen az adott műsor elérhető.</p>
+<p>Az implementálni kívánt <code>TvShow</code> interfész miatt, a következő metódusokat kell megvalósítani <code>TvShowImpl</code> osztályban:</p>
+<ul>
+<li><code>isSubscribed()</code>: feliratkoztunk-e az adott műsor csatornájára</li>
+<li><code>subscribe()</code>: ha még nem iratkoztunk fel az adott műsor csatornájára, akkor kiveszi a szükséges összeget a tárcából és feliratkozik (<em>az ezt vezető <code>Map</code>-be <code>true</code> értéket állít</em>) ha a volt elég pénzünk a művelethez (<em>azaz pénzkivétel során nem dobódott kivétel, ld. <code>tv.Wallet</code></em>)</li>
+<li><code>getChannel()</code>: getter metódus a konstruktorban kapott csatornához</li>
+<li><code>watch(OutputStream)</code>: ha nem vagyunk feliratkozva a műsor csatornájára kivételt dob; ellenkező esetben létrehoz egy <code>java.io.PrintWriter</code> példányt a paraméterként kapott <code>OutputStream</code> stream objektummal és kiírja a <code>&quot;You are watching TITLE on CHANNEL&quot;</code> szöveget (<em>ahol a <code>TITLE</code> a műsor neve, a <code>CHANNEL</code> pedig a csatorna neve</em>)
+<em>(Miután kiírtad az üzenetet, ne feledd meghívni a <code>flush()</code> metódust a példányosított <code>PrintWriter</code> osztályon.)</em></li>
+</ul>
+<h2 id="konvenci-k">Konvenciók</h2>
+<h3 id="must-have">Must have</h3>
+<h4 id="elnevez-sek">Elnevezések</h4>
+<ul>
+<li>csomag neve csupa kisbetűs, speciális karaktert nem tartalmaz (a &quot;.&quot; karaktert leszámítva) pl.  <code>java.util</code>,  <code>hu.elte.java.course2.practical10</code></li>
+<li>osztály neve nagy betűvel kezdődik, szóhatáron ismét nagy betű (camelCase), pl.  <code>ArrayList</code>,  <code>LinkedList</code>,  <code>String</code></li>
+<li>metódus és változó (akár adattag, akár lokális változó) neve kis betűvel kezdődik, szóhatáron nagy betű (camelCase), pl.  <code>toString</code>,  <code>add</code>,  <code>multipleByTwo</code></li>
+<li>osztály neve tömör és kifejező, jelzi, hogy milyen célt szolgálnak az osztály egyes példányai, pl.  <code>String</code>,  <code>Comparator</code></li>
+<li>metódus neve tömör és kifejező, jelzi, hogy a metódus milyen feladatot végez el, az adott paraméterek alapján mit módosít az objektumon, illetve milyen visszatérési értéket ad, pl.  <code>add</code>,  <code>remove</code>,  <code>equals</code>,  <code>clone</code></li>
+<li>adattag neve tömör és kifejező, jelzi, hogy milyen információt tárol, mi a szerepe a mutatott objektumnak, primitívnek vagy tömbnek (semmiképp sem egy-két betű), pl.  <code>elements</code>  (mondjuk egy lista esetén),  <code>employees</code>  (mondjuk egy cég esetén)</li>
+<li><p>lokális változó neve tömör, és utal a változóban tárolt információra, vagy legalább a változó típusára, a különböző célokra használt változók egyértelműen megkülönböztethetők, pl. megfelelő:</p>
+<pre><code>    <span class="hljs-keyword">String</span> <span class="hljs-built_in">str</span>; <span class="hljs-comment">// ha egy Stringet kell összerakni</span>
+    <span class="hljs-built_in">int</span> i; <span class="hljs-comment">// ciklusváltozó esetén</span>
+    <span class="hljs-keyword">String</span> part1, part2, part3; <span class="hljs-comment">// ha mondjuk egy tömb első, második és</span>
+    <span class="hljs-comment">//harmadik elemét mentjük ki beléjük, tehát közös célra használatosak</span>
+    kerülendő:
+    <span class="hljs-keyword">String</span> st, <span class="hljs-built_in">str</span>; <span class="hljs-comment">// a kettő együtt</span>
+    <span class="hljs-keyword">String</span> str1, str2, str3; <span class="hljs-comment">// ha a három változónak később semmi köze egymáshoz</span>
+    <span class="hljs-built_in">int</span> a; <span class="hljs-comment">// nem utal sem a szerepére, sem a típusára</span>
+</code></pre></li>
+<li><p>a hallgató által írt elnevezések vagy egységesen magyar, vagy egységesen angol nyelvűek</p>
+</li>
+</ul>
+<h4 id="indent-l-s">Indentálás</h4>
+<ul>
+<li>indentálásra egységesen szóközöket vagy egységesen tabulátorokat használ, a kettőt nem vegyíti</li>
+<li>minden kapcsos zárójellel körülzárt blokk belseje egy szinttel beljebb van húzva</li>
+<li>nyitó kapcsos az előző sor végén áll, vagy új sorban egymagában, de az adott kódban egységesen</li>
+<li>záró kapcsos új sorban áll egymagában</li>
+<li>rövid utasításblokk esetén (pl. kivételkezelés catch ága, ha rövid) elfogadható a nyitó kapcsos, utasítás és záró kapcsos egy sorban</li>
+<li>nincs 80 karakternél hosszabb sor</li>
+<li>lambdák és névtelen osztályok esetén a záró kapcsos után folytatódhat a sor, illetve rövid lambda írható egy sorba az őt tartalmazó utasítással</li>
+</ul>
+<h4 id="struktur-l-s">Strukturálás</h4>
+<ul>
+<li>ciklusok egymásba ágyazva legfeljebb 2 szint mélyen (ciklusban ciklus, de nincs ciklusban ciklusban ciklus) Ismert algoritmusok (pl. mátrixszorzás) esetén és különösen indokolt esetben a 3 szintű egymásba ágyazás még elfogadható, több semmiképpen.</li>
+<li><pre><code>Ha szükséges lenne ennél mélyebb egymásba ágyazás, akkor egy részét ki kell emelni egy metódusba.
+</code></pre></li>
+<li><p>elágazások és ciklusok egymásba ágyazva legfeljebb 4 szint mélyen</p>
+</li>
+<li><pre><code>Ha szükséges lenne ennél mélyebb egymásba ágyazás, akkor egy részét ki kell emelni egy metódusba.
+</code></pre></li>
+<li><p>nincs 5 sornál hosszabb ismétlődő rész a kódban (ismétlődés az is, ha az eltérés minimális a két kódrészletben, pl. egy-egy változó, általánosítható típus vagy valamilyen rövid részeredmény, ami lokális változóba kiemelhető lenne)</p>
+</li>
+<li><p>nincs hosszú, több részletből álló számítás, ami ismétlődne, pl. rossz</p>
+<pre><code><span class="hljs-built_in">if</span> ( <span class="hljs-comment">/*...*/</span> ) {
+    <span class="hljs-keyword">String</span> result = <span class="hljs-string">"A person whose name is "</span> + name + <span class="hljs-string">" and who has a "</span> +
+        salary + <span class="hljs-string">"$ salary bought a "</span> + price + <span class="hljs-string">"$ car"</span>.
+} <span class="hljs-built_in">else</span> {
+    <span class="hljs-keyword">String</span> result = <span class="hljs-string">"A person whose name is "</span> + name + <span class="hljs-string">" and who has a "</span> +
+        salary + <span class="hljs-string">"$ salary bought a "</span> + price + <span class="hljs-string">"$ boat"</span>.
+}
+<span class="hljs-comment">// A sorok végén lévő eltérő rész egy lokális változóba kiszámítható előre.</span>
+</code></pre></li>
+<li><p>nincs 25 sornál hosszabb metódus</p>
+</li>
+<li>nincs 1000 sornál hosszabb osztály</li>
+</ul>
+<h4 id="l-that-s-gok">Láthatóságok</h4>
+<ul>
+<li>az adott osztálytól elvárt publikus műveleteken kívül az osztály nem tartalmaz más publikus műveleteket</li>
+<li>az osztály nem tartalmaz publikus adattagokat, kivéve, ha a feladat ennek ellenkezőjét kimondottan kéri</li>
+</ul>
+<h4 id="biztons-g">Biztonság</h4>
+<ul>
+<li>a belső állapotot semelyik metódus sem szivárogtatja ki</li>
+<li><pre><code>    Egy objektum ha egy nem rejtett metódusá<span class="hljs-keyword">ban </span>paraméterül kap egy másik objektumot, amit le akar menteni egy adattagjá<span class="hljs-keyword">ba, </span>vagy kiad egy adattagjá<span class="hljs-keyword">ban </span>tárolt objektumot, azokat másolni kell, hogy a <span class="hljs-keyword">belső </span>á<span class="hljs-keyword">llapot </span>kintről ne legyen módosítható.
+</code></pre></li>
+<li><pre><code>  <span class="hljs-literal">A</span> másolásra értelemszerűen nincs szükség (és ezért nem is szabad), ha <span class="hljs-literal">a</span> kapott, illetve kiadott objektum immutable, azaz módosíthatatlan, pl. `String`, `Integer`.
+</code></pre></li>
+</ul>
+<h4 id="hat-konys-g">Hatékonyság</h4>
+<ul>
+<li>immutable objektumokat (pl.  <code>String</code>) ne másoljunk</li>
+<li><p>a kód nem számítja ki többször ugyanazt, ha közben a kiszámítandó érték biztosan nem változott, pl. rossz</p>
+<pre><code>Point first = <span class="hljs-built_in">line</span>.getPoints()[<span class="hljs-number">0</span>];
+Point <span class="hljs-built_in">second</span> = <span class="hljs-built_in">line</span>.getPoints()[<span class="hljs-number">1</span>];
+Point third = <span class="hljs-built_in">line</span>.getPoints()[<span class="hljs-number">2</span>];
+...
+<span class="hljs-comment">// Itt a getPoints() egy potenciálisan bonyolult számítást végző művelet,</span>
+<span class="hljs-comment">// és feleslegesen hívódik meg háromszor. Az utasítássor elején egyszer</span>
+<span class="hljs-comment">// kellene meghívni, és az eredményül kapott tömböt lementeni, aztán azt</span>
+<span class="hljs-comment">// feldolgozni.</span>
+
+<span class="hljs-built_in">int</span> len = <span class="hljs-built_in">line</span>.getPoints().length;
+<span class="hljs-keyword">for</span> (<span class="hljs-built_in">int</span> i = <span class="hljs-number">0</span>; i &lt; len; ++i) {
+    Point <span class="hljs-built_in">point</span> = <span class="hljs-built_in">line</span>.getPoints()[i];
+    ...
+}
+<span class="hljs-comment">// Itt minden iterációban meghívódik a getPoints() utasítás, teljesen</span>
+<span class="hljs-comment">//feleslegesen. Itt is kimenthető lenne az értéke egy lokális változóba előre.</span>
+
+<span class="hljs-comment">// Figyelem! A fenti példák természetesen NEM csak tömbök esetén igazak,</span>
+<span class="hljs-comment">// bármilyen visszatérési értékű metódus esetén felléphet, ha tudjuk, hogy</span>
+<span class="hljs-comment">// az eredmény minden hívásnál ugyanaz.</span>
+</code></pre></li>
+<li><p>ha tudhatóan sok vagy hosszú, illetve ha ismeretlen darabszámú  <code>String</code>-eket konkatenálunk össze, azokat  <code>StringBuilder</code>-rel kell összekapcsolni; pl. ha egy fájl sorait fűzzük össze, és nem tudjuk, milyen hosszú a fájl</p>
+</li>
+</ul>
+<h4 id="-ltal-nos-elvek">Általános elvek</h4>
+<ul>
+<li><p>statikus mezőt vagy statikus metódust nem hivatkozunk objektumreferencián keresztül; pl. rossz:</p>
+<pre><code><span class="hljs-attribute">    Integer i</span> = 5;
+<span class="hljs-attribute">    int j</span> = i.parseInt(<span class="hljs-string">"123"</span>);
+</code></pre></li>
+<li><p>rövid magyarázó kommentek a bonyolult kódrészletekhez (az időkorlátok miatt ezt zárthelyin nem várjuk el)</p>
+</li>
+</ul>
+<h3 id="nice-to-have">Nice to have</h3>
+<h4 id="elnevez-sek">Elnevezések</h4>
+<ul>
+<li>static final adattag csupa nagy betűs, szóhatáron aláhúzás pl.  <code>STATIC_FINAL_VARIABLE</code></li>
+<li>típusparaméter egyetlen nagy betűből áll pl.  <code>T</code>,  <code>E</code>,  <code>W</code></li>
+<li>minden elnevezés angol nyelvű</li>
+</ul>
+<h4 id="indent-l-s">Indentálás</h4>
+<ul>
+<li>minden utasítás külön sorban</li>
+<li>minden ciklus és elágazás utasításai kapcsos zárójelek közé vannak zárva, akkor is, ha csak egy utasítás van</li>
+<li>lambdák és névtelen osztályok esetén a záró kapcsos után folytatódhat a sor, illetve rövid lambda írható egy sorba az őt tartalmazó utasítással</li>
+</ul>
+<h4 id="struktur-l-s">Strukturálás</h4>
+<ul>
+<li>nincs 2 sornál hosszabb ismétlődő rész a kódban</li>
+</ul>
+<h4 id="l-that-s-gok">Láthatóságok</h4>
+<ul>
+<li>minden eleme a kódnak a legszigorúbb láthatósággal van védve, ami még a kód működéséhez elegendő</li>
+<li>adattagok mindig privátak, kivéve, ha a feladat ennek ellenkezőjét kimondottan kéri</li>
+</ul>
+<h4 id="biztons-g">Biztonság</h4>
+<ul>
+<li>a  <code>Closable</code>  interfészt megvalósító osztályok (pl.  <code>Scanner</code>,  <code>PrintWriter</code>) objektumain minden esetben meghívja a használatuk végén a  <code>close()</code>  metódust  <code>try</code>-<code>catch</code>-<code>finally</code>  vagy  <em>try-with-resources</em>  szerkezettel</li>
+</ul>
+<h4 id="hat-konys-g">Hatékonyság</h4>
+<ul>
+<li>ha van az adott feladatra egy ismert vagy egyszerű algoritmus, amely nagyságrendekkel gyorsabb, mint az elsőre megírt, akkor használjuk azt!</li>
+</ul>
+<h4 id="-ltal-nos-elvek">Általános elvek</h4>
+<ul>
+<li>törekedjünk a kód tömörségére (nem minden áron!) A rövid kód általában könnyebben olvasható, értelmezhető, később egyszerűbb módosítani. Ha olyan kódrészleteket látunk, melyek egy gyors változtatással rövidebben is megírhatóak, azt érdemes megtenni.</li>
+<li>az osztályok egy-egy egyértelmű feladatot látnak el (Single Responsibility Principle)</li>
+<li>a kód &quot;öndokumentáló&quot;, elolvasva könnyen értelmezhető, hogy milyen feladatot végez el</li>
+<li>dokumentációs kommentek (JavaDoc) az összetett metódusokhoz és osztályokhoz (az időkorlátok miatt ezt zárthelyin nem várjuk el)</li>
+</ul>
+<p>ading</p>
+<ul>
+<li>Unordered lists, and:<ol>
+<li>One</li>
+<li>Two</li>
+<li>Three</li>
+</ol>
+</li>
+<li>More</li>
+</ul>
+<blockquote>
+<p>Blockquote</p>
+</blockquote>
+<p>And <strong>bold</strong>, <em>italics</em>, and even <em>italics and later <strong>bold</strong></em>. Even <del>strikethrough</del>. <a href="https://markdowntohtml.com">A link</a> to somewhere.</p>
+<p>And code highlighting:</p>
+<pre><code class="lang-js"><span class="hljs-keyword">var</span> foo = <span class="hljs-string">'bar'</span>;
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">baz</span><span class="hljs-params">(s)</span> </span>{
+   <span class="hljs-keyword">return</span> foo + <span class="hljs-string">':'</span> + s;
+}
+</code></pre>
+<p>Or inline code like <code>var foo = &#39;bar&#39;;</code>.</p>
+<p>Or an image of bears</p>
+<p><img src="http://placebear.com/200/200" alt="bears"></p>
+<p>The end ...</p>
+</body></html>
