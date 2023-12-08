@@ -1,6 +1,6 @@
 package test;
 
-// import com.sun.istack.internal.Nullable;
+import com.sun.istack.internal.Nullable;
 
 import java.util.Objects;
 import java.util.function.Predicate;
@@ -38,7 +38,7 @@ public final class Assertions {
         assertThat(message, () -> Objects.equals(expected, actual));
     }
 
-    public static void assertThrows(String message, Class<? extends Throwable> exceptionClass, Runnable r) {
+    public static void assertThrows(String message, @Nullable Class<? extends Throwable> exceptionClass, Runnable r) {
         try {
             r.run();
         } catch (Throwable t) {

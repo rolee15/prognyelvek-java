@@ -18,11 +18,4 @@ public class Wallet {
             creditCard.charge(amount);
         }
     }
-
-    public class InsufficientFundsException extends Exception {
-
-        public InsufficientFundsException(String message) {
-            super(message);
-        }
-    }
 }
