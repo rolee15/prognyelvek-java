@@ -1,5 +1,6 @@
 package test;
 
+// Ez az import hibát dob, hogy a package nem létezik
 import com.sun.istack.internal.Nullable;
 
 import java.util.Objects;
@@ -38,6 +39,7 @@ public final class Assertions {
         assertThat(message, () -> Objects.equals(expected, actual));
     }
 
+    // az import hiánya miatt nem fordul, nem találja a Nullable szimbólumot
     public static void assertThrows(String message, @Nullable Class<? extends Throwable> exceptionClass, Runnable r) {
         try {
             r.run();

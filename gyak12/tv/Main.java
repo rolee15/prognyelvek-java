@@ -8,9 +8,18 @@ import tv.providers.*;
 public class Main {
 
     public static void main(String[] args) {
-        var app = new TvApp(new Wallet());
+        var wallet = new Wallet();
+        var app = new TvApp(wallet);
 
-        for (var show : app.browseAllShows())
-            System.out.println(show);
+        try {
+            var show = app.searchShow("Game of Thrones");
+
+            if (!show.isSubscribed()) {
+                show.subscribe();
+            }
+            show.watch(System.out);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 }

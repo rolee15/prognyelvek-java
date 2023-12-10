@@ -14,7 +14,7 @@ public class CreditCard implements AutoCloseable {
     private final String cardNumber;
     private Integer balance;
 
-    public CreditCard(String cardNumber) {
+    public CreditCard(String cardNumber) throws CreditCardException {
         this.cardNumber = cardNumber;
         balance = AVAILABLE_CARDS.get(cardNumber);
         if (balance == null) {

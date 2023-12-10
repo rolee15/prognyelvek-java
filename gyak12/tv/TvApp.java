@@ -28,7 +28,9 @@ public class TvApp {
     public List<TvShow> browseAllShows() {
         var list = new ArrayList<TvShow>();
         for (Channel channel : subscriptions.keySet()) {
-            channel.getShows().forEach(show -> list.add(new TvShowImpl(show.getTitle(), channel)));
+            channel.getShows().forEach(show ->
+                list.add(new TvShowImpl(show.getTitle(), channel, this))
+            );
         }
         return list;
     }
@@ -38,12 +40,22 @@ public class TvApp {
             for (Show show : channel.getShows()) {
                 var title = show.getTitle();
                 if (name.equals(title)) {
-                    return new TvShowImpl(title, channel);
+                    return new TvShowImpl(title, channel, this);
                 }
             }
         }
 
-        throw new ShowNotFoundException("Can't find show with given name: " + name);
+        throw new ShowNotFoundException("Can't find show with given name: "
+            + name);
+    }
+
+    public Boolean isSubscribed(Channel channel) {
+        return subscriptions.get(channel);
+    }
+
+    public void subscribe(Channel channel) throws InsufficientFundsException {
+        wallet.draw(channel.getPrice());
+        subscriptions.put(channel, true);
     }
 
     public class ShowNotFoundException extends Exception {
